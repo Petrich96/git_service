@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+
+  gitlab-server:
+    image: 'gitlab/gitlab-ee:latest'
+    hostname: ${GIT_HOSTNAME}
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '22:22'
+    environment:
+     - TZ=Europe/Moscow
+
+    volumes:
+      - '$GIT_HOMEDIR/config.d:/etc/gitlab'
+      - '$GIT_HOMEDIR/logs.d:/var/log/gitlab'
+      - '$GIT_HOMEDIR/data.d:/var/opt/gitlab'
+
+
+
+    shm_size: '256m'
