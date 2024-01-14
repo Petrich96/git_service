@@ -1649,15 +1649,15 @@ nginx['redirect_http_to_https'] = true
 
 # nginx['ssl_certificate'] = "/etc/gitlab/ssl/#{node['fqdn']}.crt"
 # nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/#{node['fqdn']}.key"
-nginx['ssl_ciphers'] = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384"
+nginx['ssl_ciphers'] = "ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305"
 nginx['ssl_prefer_server_ciphers'] = "on"
 
 ##! **Recommended by: https://raymii.org/s/tutorials/Strong_SSL_Security_On_nginx.html
 ##!                   https://cipherli.st/**
-nginx['ssl_protocols'] = "TLSv1.2 TLSv1.3"
+# nginx['ssl_protocols'] = "TLSv1.2 TLSv1.3"
 
 ##! **Recommended in: https://nginx.org/en/docs/http/ngx_http_ssl_module.html**
-nginx['ssl_session_cache'] = "shared:SSL:10m"
+# nginx['ssl_session_cache'] = "shared:SSL:10m"
 
 ##! **Recommended in: https://ssl-config.mozilla.org/#server=nginx&version=1.17.7&config=intermediate&openssl=1.1.1d&ocsp=false&guideline=5.6**
 # nginx['ssl_session_tickets'] = "off"
@@ -1665,7 +1665,7 @@ nginx['ssl_session_cache'] = "shared:SSL:10m"
 ##! **Default according to https://nginx.org/en/docs/http/ngx_http_ssl_module.html**
 # nginx['ssl_session_timeout'] = "1d"
 
-nginx['ssl_dhparam'] = nil # Path to dhparams.pem, eg. /etc/gitlab/ssl/dhparams.pem
+nginx['ssl_dhparam'] = "/run/secrets/dhparam.pem" # Path to dhparams.pem, eg. /etc/gitlab/ssl/dhparams.pem
 # nginx['ssl_password_file'] = nil # Path to file with passphrases for ssl certificate secret keys
 # nginx['listen_addresses'] = ['*', '[::]']
 

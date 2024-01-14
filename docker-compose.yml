@@ -18,6 +18,11 @@ services:
       - '$GIT_HOMEDIR/logs.d:/var/log/gitlab'
       - '$GIT_HOMEDIR/data.d:/var/opt/gitlab'
 
-
-
     shm_size: '256m'
+
+    secrets:
+      - dhparam.pem
+
+secrets:
+  dhparam.pem:
+    file: $GIT_DHPARAM
