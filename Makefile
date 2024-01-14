@@ -10,11 +10,7 @@ start: startRelease
 ##  Мини-установка: создание рабочих директорий, подготовка конфигов ##
 directories = config.d logs.d data.d crypto.d
 
-install: $(directories) _install_crypto
-
-$(directories): %.d:
-	mkdir -p "$@"
-	chmod -R 700 "$@"
+install: $(directories) _install_crypto _install_gitlab_config
 
 
 ##  Запуск контейнеров в режиме отладки  ##
@@ -57,14 +53,25 @@ cleanAll: clean
 			rm -rf *.d .env
 
 
-
 ##  При отсутствии файла с переменными среды будет создан файл со значениями по умолчанию  ##
 .env:
-	cp .env.example .env
+			cp .env.example .env
 
+
+##  Создание директорий  ##
+$(directories): %.d:
+			mkdir -p "$@"
+			chmod -R 700 "$@"
+
+
+## Копирование конфига GitLab в целевую директорию  ##
+_install_gitlab_config: $(GIT_CONFIGRB)
+
+$(GIT_CONFIGRB):
+			cp gitlab.rb $(GIT_CONFIGRB)
 
 ##  Создаем DH группу  ##
 _install_crypto: $(GIT_DHPARAM)
 
 $(GIT_DHPARAM):
-	openssl dhparam -out $(GIT_DHPARAM) 4096 &>/dev/null
+			openssl dhparam -out $(GIT_DHPARAM) 4096 &>/dev/null
