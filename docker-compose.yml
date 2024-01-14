@@ -1,9 +1,8 @@
 version: '3.7'
 
 services:
-
   gitlab-server:
-    image: 'gitlab/gitlab-ee:latest'
+    image: 'gitlab/gitlab-ce:latest'
     hostname: ${GIT_HOSTNAME}
     restart: unless-stopped
     ports:
@@ -12,17 +11,14 @@ services:
       - '22:22'
     environment:
      - TZ=Europe/Moscow
-
     volumes:
       - '$GIT_HOMEDIR/config.d:/etc/gitlab'
       - '$GIT_HOMEDIR/logs.d:/var/log/gitlab'
       - '$GIT_HOMEDIR/data.d:/var/opt/gitlab'
-
     shm_size: '256m'
-
     secrets:
       - dhparam.pem
 
 secrets:
   dhparam.pem:
-    file: $GIT_DHPARAM
+    file: ${GIT_DHPARAM}
