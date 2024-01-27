@@ -10,6 +10,7 @@ start: startRelease
 ##  Мини-установка: создание рабочих директорий, подготовка конфигов ##
 directories = config.d logs.d data.d crypto.d
 
+.PHONY: install
 install: $(directories) _install_crypto _install_gitlab_config
 
 
